@@ -50,8 +50,6 @@ namespace Proyecto.Controllers
         }
 
         // POST: Dietas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NameDiet,DescriptionDiet,Calories,Proteins,Carbohydrates,DietType")] Dieta dieta)
@@ -82,8 +80,6 @@ namespace Proyecto.Controllers
         }
 
         // POST: Dietas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,NameDiet,DescriptionDiet,Calories,Proteins,Carbohydrates,DietType")] Dieta dieta)
@@ -152,6 +148,56 @@ namespace Proyecto.Controllers
         private bool DietaExists(int id)
         {
             return _context.Dieta.Any(e => e.Id == id);
+        }
+
+        // POST: Mostrar dieta según calorías del usuario
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MostrarDietaSegunCalorias(string idUsuario)
+        {
+            var usuario = await _context.Usuario.FindAsync(idUsuario);
+
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            int calorias = usuario.TotalCalories;
+
+            if (calorias < 2000)
+            {
+                return RedirectToAction("DietaBaja", new { id = usuario.Id });
+            }
+            else if (calorias < 3000)
+            {
+                return RedirectToAction("DietaMedia", new { id = usuario.Id });
+            }
+            else
+            {
+                return RedirectToAction("DietaAlta", new { id = usuario.Id });
+            }
+        }
+
+        // Vistas de dietas personalizadas según calorías
+        public async Task<IActionResult> DietaBaja(string id)
+        {
+            var usuario = await _context.Usuario.FindAsync(id);
+            if (usuario == null) return NotFound();
+            return View("DietaBaja", usuario);
+        }
+
+        public async Task<IActionResult> DietaMedia(string id)
+        {
+            var usuario = await _context.Usuario.FindAsync(id);
+            if (usuario == null) return NotFound();
+            return View("DietaMedia", usuario);
+        }
+
+        public async Task<IActionResult> DietaAlta(string id)
+        {
+            var usuario = await _context.Usuario.FindAsync(id);
+            if (usuario == null) return NotFound();
+            return View("DietaAlta", usuario);
         }
     }
 }
