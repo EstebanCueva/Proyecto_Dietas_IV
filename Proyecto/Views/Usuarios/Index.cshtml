@@ -1,86 +1,97 @@
 ﻿@model IEnumerable<Proyecto.Models.Usuario>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tabla de Usuarios";
 }
 
-<h1>Index</h1>
+<h1>Tabla de Usuarios</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
 </p>
-<table class="table">
-    <thead>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
+                <span class="badge badge-info">Nombre</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Sex)
+                <span class="badge badge-info">Sexo</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Age)
+                <span class="badge badge-info">Edad</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
+                <span class="badge badge-info">Descripción</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Weight)
+                <span class="badge badge-info">Peso</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Height)
+                <span class="badge badge-info">Altura</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Activity)
+                <span class="badge badge-info">Actividad</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Dieta)
+                <span class="badge badge-info">Dieta</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TotalCalories)
+                <span class="badge badge-info">Calorías Totales</span>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sex)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Weight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Height)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Activity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dieta.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalCalories)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sex)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Height)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Activity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dieta.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalCalories)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Editar</a> |
                     <form asp-controller="Dietas" asp-action="MostrarDietaSegunCalorias" method="post" style="display:inline;">
                         <input type="hidden" name="idUsuario" value="@item.Id" />
                         <button type="submit" class="btn btn-sm btn-info">Ver Dieta</button>
-                    </form>
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+                    </form> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

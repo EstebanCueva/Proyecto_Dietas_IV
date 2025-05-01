@@ -1,10 +1,10 @@
 ﻿@model Proyecto.Models.Dieta
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear";
 }
 
-<h1>Create</h1>
+<h1>Crear Dieta</h1>
 
 <h4>Dieta</h4>
 <hr />
@@ -13,46 +13,48 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NameDiet" class="control-label"></label>
+                <label asp-for="NameDiet" class="control-label">Nombre de la Dieta</label>
                 <input asp-for="NameDiet" class="form-control" />
                 <span asp-validation-for="NameDiet" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DescriptionDiet" class="control-label"></label>
+                <label asp-for="DescriptionDiet" class="control-label">Descripción</label>
                 <input asp-for="DescriptionDiet" class="form-control" />
                 <span asp-validation-for="DescriptionDiet" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Calories" class="control-label"></label>
+                <label asp-for="Calories" class="control-label">Calorías</label>
                 <input asp-for="Calories" class="form-control" />
                 <span asp-validation-for="Calories" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Proteins" class="control-label"></label>
+                <label asp-for="Proteins" class="control-label">Proteínas</label>
                 <input asp-for="Proteins" class="form-control" />
                 <span asp-validation-for="Proteins" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Carbohydrates" class="control-label"></label>
+                <label asp-for="Carbohydrates" class="control-label">Carbohidratos</label>
                 <input asp-for="Carbohydrates" class="form-control" />
                 <span asp-validation-for="Carbohydrates" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DietType" class="control-label"></label>
+                <label asp-for="DietType" class="control-label">Tipo de Dieta</label>
                 <input asp-for="DietType" class="form-control" />
                 <span asp-validation-for="DietType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
