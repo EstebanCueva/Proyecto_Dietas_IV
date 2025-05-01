@@ -63,7 +63,7 @@ namespace Proyecto.Controllers
             {
                 // Calcular TMB
                 double tmb;
-                if (usuario.Sex == "M")
+                if (usuario.Sex == "Mujer")
                 {
                     tmb = 10 * usuario.Weight + 6.25 * usuario.Height - 5 * usuario.Age + 5;
                 }
