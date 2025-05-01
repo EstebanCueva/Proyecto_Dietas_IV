@@ -54,7 +54,7 @@ namespace Proyecto.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NameDiet,DescriptionDiet,Calories,Proteins,Carbohydrates,DailyUse,DietType")] Dieta dieta)
+        public async Task<IActionResult> Create([Bind("Id,NameDiet,DescriptionDiet,Calories,Proteins,Carbohydrates,DietType")] Dieta dieta)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Proyecto.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NameDiet,DescriptionDiet,Calories,Proteins,Carbohydrates,DailyUse,DietType")] Dieta dieta)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NameDiet,DescriptionDiet,Calories,Proteins,Carbohydrates,DietType")] Dieta dieta)
         {
             if (id != dieta.Id)
             {

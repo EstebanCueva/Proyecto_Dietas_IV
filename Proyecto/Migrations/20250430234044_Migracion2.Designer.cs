@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proyecto.Data;
 
@@ -10,9 +11,11 @@ using Proyecto.Data;
 namespace Proyecto.Migrations
 {
     [DbContext(typeof(ProyectoContext))]
-    partial class ProyectoContextModelSnapshot : ModelSnapshot
+    [Migration("20250430234044_Migracion2")]
+    partial class Migracion2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,6 +36,9 @@ namespace Proyecto.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Carbohydrates")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DailyUse")
                         .HasColumnType("int");
 
                     b.Property<string>("DescriptionDiet")
@@ -84,9 +90,6 @@ namespace Proyecto.Migrations
                     b.Property<string>("Sex")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TotalCalories")
-                        .HasColumnType("int");
 
                     b.Property<int>("Weight")
                         .HasColumnType("int");

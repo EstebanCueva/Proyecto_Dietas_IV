@@ -57,14 +57,36 @@ namespace Proyecto.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Sex,Age,Description,Weight,Height,Width,IdDieta")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Id,Name,Sex,Age,Description,Weight,Height,Activity,IdDieta")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
+                // Calcular TMB
+                double tmb;
+                if (usuario.Sex == "M")
+                {
+                    tmb = 10 * usuario.Weight + 6.25 * usuario.Height - 5 * usuario.Age + 5;
+                }
+                else
+                {
+                    tmb = 10 * usuario.Weight + 6.25 * usuario.Height - 5 * usuario.Age - 161;
+                }
+
+                double factorActividad = usuario.Activity switch
+                {
+                    "Baja" => 1.2,
+                    "Moderada" => 1.55,
+                    "Alta" => 1.9,
+                    _ => 1.2
+                };
+
+                usuario.TotalCalories = (int)(tmb * factorActividad);
+
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["IdDieta"] = new SelectList(_context.Dieta, "Id", "Id", usuario.IdDieta);
             return View(usuario);
         }
@@ -91,7 +113,7 @@ namespace Proyecto.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,Sex,Age,Description,Weight,Height,Width,IdDieta")] Usuario usuario)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,Sex,Age,Description,Weight,Height,Activity,IdDieta,TotalCalories")] Usuario usuario)
         {
             if (id != usuario.Id)
             {

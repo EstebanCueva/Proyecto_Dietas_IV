@@ -13,10 +13,12 @@ namespace Proyecto.Models
         public string Description { get; set; }
         public int Weight { get; set; }
         public int Height { get; set; }
-        public int Width { get; set; }
+        public string Activity { get; set; }
+
         public int IdDieta { get; set; }
         [ForeignKey("IdDieta")]
         public Dieta? Dieta { get; set; }
-        
+        public int TotalCalories { get; set; }
+
     }
 }

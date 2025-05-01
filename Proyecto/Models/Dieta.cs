@@ -11,7 +11,6 @@ namespace Proyecto.Models
         public int Calories { get; set; }
         public int Proteins { get; set; }
         public int Carbohydrates { get; set; }
-        public int DailyUse { get; set; }
         public string DietType {  get; set; }
 
     }
