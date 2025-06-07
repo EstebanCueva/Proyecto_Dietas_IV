@@ -171,6 +171,7 @@ namespace Proyecto.Controllers
             else if (calorias < 3000)
             {
                 return RedirectToAction("DietaMedia", new { id = usuario.Id });
+
             }
             else
             {
