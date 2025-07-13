@@ -18,11 +18,10 @@ public class TestDbController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetUsuariosSimples()
     {
-        // Regresa todos los registros completos de la tabla Usuario
         var lista = await _context.Usuario.ToListAsync();
-
         return Ok(lista);
     }
+
     // POST: api/testdb
     [HttpPost]
     public async Task<IActionResult> CrearUsuario([FromBody] Usuario nuevoUsuario)
@@ -38,7 +37,7 @@ public class TestDbController : ControllerBase
 
     // GET auxiliar para CreatedAtAction
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetUsuarioPorId(int id)
+    public async Task<IActionResult> GetUsuarioPorId(string id)
     {
         var usuario = await _context.Usuario.FindAsync(id);
         if (usuario == null)
@@ -47,9 +46,9 @@ public class TestDbController : ControllerBase
         return Ok(usuario);
     }
 
-    // PUT: api/testdb/5
+    // PUT: api/testdb/{id}
     [HttpPut("{id}")]
-    public async Task<IActionResult> ActualizarUsuario(int id, [FromBody] Usuario usuarioActualizado)
+    public async Task<IActionResult> ActualizarUsuario(string id, [FromBody] Usuario usuarioActualizado)
     {
         if (id != usuarioActualizado.Id)
             return BadRequest("El ID no coincide.");
@@ -58,7 +57,7 @@ public class TestDbController : ControllerBase
         if (usuarioExistente == null)
             return NotFound();
 
-        // Actualizar propiedades (manual o con AutoMapper si prefieres)
+        // Actualizar propiedades
         usuarioExistente.Name = usuarioActualizado.Name;
         usuarioExistente.Age = usuarioActualizado.Age;
         usuarioExistente.Description = usuarioActualizado.Description;
@@ -72,9 +71,9 @@ public class TestDbController : ControllerBase
         return NoContent();
     }
 
-    // DELETE: api/testdb/5
+    // DELETE: api/testdb/{id}
     [HttpDelete("{id}")]
-    public async Task<IActionResult> EliminarUsuario(int id)
+    public async Task<IActionResult> EliminarUsuario(string id)
     {
         var usuario = await _context.Usuario.FindAsync(id);
         if (usuario == null)
@@ -84,5 +83,4 @@ public class TestDbController : ControllerBase
         await _context.SaveChangesAsync();
         return NoContent();
     }
-
 }
