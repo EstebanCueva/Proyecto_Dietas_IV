@@ -96,34 +96,6 @@ namespace Proyecto.Controllers
             return NoContent();
         }
 
-        // GET: api/DietasApi/por-usuario/123
-        [HttpGet("por-usuario/{idUsuario}")]
-        public async Task<IActionResult> ObtenerDietaSegunCalorias(string idUsuario)
-        {
-            var usuario = await _context.Usuario.FindAsync(idUsuario);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            var calorias = usuario.TotalCalories;
-
-            string tipo;
-            if (calorias < 2000)
-                tipo = "baja";
-            else if (calorias < 3000)
-                tipo = "media";
-            else
-                tipo = "alta";
-
-            return Ok(new
-            {
-                Usuario = usuario.Name,
-                Calorias = calorias,
-                TipoDieta = tipo
-            });
-        }
-
         private bool DietaExists(int id)
         {
             return _context.Dieta.Any(e => e.Id == id);

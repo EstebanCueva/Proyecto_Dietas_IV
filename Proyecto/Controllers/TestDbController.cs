@@ -29,11 +29,26 @@ public class TestDbController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
+        double tmb = (nuevoUsuario.Sex == "Masculino")
+            ? 10 * nuevoUsuario.Weight + 6.25 * nuevoUsuario.Height - 5 * nuevoUsuario.Age + 5
+            : 10 * nuevoUsuario.Weight + 6.25 * nuevoUsuario.Height - 5 * nuevoUsuario.Age - 161;
+
+        double factorActividad = nuevoUsuario.Activity switch
+        {
+            "Baja" => 1.2,
+            "Media" => 1.55,
+            "Alta" => 1.9,
+            _ => 1.2
+        };
+
+        nuevoUsuario.TotalCalories = (int)(tmb * factorActividad);
+
         _context.Usuario.Add(nuevoUsuario);
         await _context.SaveChangesAsync();
 
         return CreatedAtAction(nameof(GetUsuarioPorId), new { id = nuevoUsuario.Id }, nuevoUsuario);
     }
+
 
     // GET auxiliar para CreatedAtAction
     [HttpGet("{id}")]
